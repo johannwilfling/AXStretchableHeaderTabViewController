@@ -24,6 +24,12 @@ typedef enum : NSUInteger {
 @property (assign, nonatomic) id<AXTabBarDelegate> delegate;
 @property (strong, nonatomic) UIFont *tabBarButtonFont;
 
+@property (strong, nonatomic) UIImage *tabBarBackgroundImage;
+@property (strong, nonatomic) UIColor *tintColorStateNormal;
+@property (strong, nonatomic) UIColor *tintColorStateSelected;
+
+@property CGFloat indicatorLayerBottomOffset;
+
 // TODO: implement this style option.
 //@property (nonatomic) AXTabBarStyle tabBarStyle;
 @end
