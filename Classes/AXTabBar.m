@@ -40,6 +40,7 @@
     [self.layer addSublayer:_bottomSeparator];
 
     _indicatorLayer = [CALayer layer];
+    _indicatorLayerBottomOffset = 2.0;
     [self.layer addSublayer:_indicatorLayer];
   }
   return self;
@@ -100,18 +101,20 @@
       if ([obj isKindOfClass:[UITabBarItem class]]) {
         UITabBarItem *item = obj;
         AXTabBarItemButton *button = [[AXTabBarItemButton alloc] init];
+        [button setBackgroundImage:_tabBarBackgroundImage forState:UIControlStateNormal];
         [button.titleLabel setFont:_tabBarButtonFont];
         [button setImage:item.image forState:UIControlStateNormal];
         [button setTitle:item.title forState:UIControlStateNormal];
         [button setBadgeValue:item.badgeValue];
         [button addTarget:self action:@selector(touchesButton:) forControlEvents:UIControlEventTouchDown];
-        [button setTitleColor:self.tintColor forState:UIControlStateSelected];
-        [button setTitleColor:self.tintColor forState:UIControlStateHighlighted];
+        [button setTitleColor:_tintColorStateNormal forState:UIControlStateNormal];
+        [button setTitleColor:_tintColorStateSelected forState:UIControlStateSelected];
+          [button setTitleColor:_tintColorStateSelected forState:UIControlStateHighlighted];
         [_containerView addSubview:button];
         [buttons addObject:button];
       }
     }];
-    [_indicatorLayer setBackgroundColor:[self.tintColor CGColor]];
+    [_indicatorLayer setBackgroundColor:[_tintColorStateSelected CGColor]];
     [self setNeedsLayout];
     self.tabBarItemButtons = [buttons copy];
     
@@ -149,7 +152,7 @@
     width, 1.0
   }];
   [_indicatorLayer setFrame:(CGRect){
-    CGRectGetMinX(button.frame), height - 2.0,
+    CGRectGetMinX(button.frame), height - _indicatorLayerBottomOffset,
     CGRectGetWidth(button.frame), 2.0
   }];
   [CATransaction commit];
