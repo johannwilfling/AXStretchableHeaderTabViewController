@@ -32,4 +32,7 @@ typedef enum : NSUInteger {
 
 // TODO: implement this style option.
 //@property (nonatomic) AXTabBarStyle tabBarStyle;
+
+@property (copy, nonatomic) NSArray *tabBarItemButtons;
+
 @end
